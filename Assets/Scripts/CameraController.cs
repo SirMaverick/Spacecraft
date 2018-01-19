@@ -6,14 +6,6 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private float m_RotationSpeed;
 
-    GameObject leftPosition, rightPosition, frontPosition, backPosition;
-
-    // Use this for initialization
-    void Start () {
-
-    }
-	
-	// Update is called once per frame
 	void Update () {
         float AxisHor = Input.GetAxis("Cam_Horizontal");
         float axisVer = Input.GetAxis("Cam_Vertical");

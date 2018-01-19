@@ -5,23 +5,14 @@ using UnityEngine;
 public class SpaceShipMovement : MonoBehaviour {
 
     RaycastHit hit;
-    Vector3 frontPos, midPos, backPos, leftPos, rightPos;
+    Vector3 frontPos, midPos, backPos;
     public float frontHeight, midHeight;
+
     [SerializeField] float minDistance;
-
-    string heightDifference;
-
     public float yRotation = 0.0F;
     public float xRotation = 0.0f;
 
-    public float xPosition;
-    public float zPosition;
 
-    // Use this for initialization
-    void Start () {
-	}
-
-    // Update is called once per frame
     void Update() {
         //xPosition = Input.GetAxis("Horizontal") * 3.0f * Time.deltaTime;
         //zPosition = Input.GetAxis("Vertical") * 3.0f * Time.deltaTime;  
