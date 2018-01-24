@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceShipMovement : MonoBehaviour {
+public class SpaceShipMovement : MonoBehaviour
+{
 
+    // Scoping too broad: lots of class variables for no reason
+    // Constrain scope of your variables. 
+    // Don't leak out data where it doesn't need to be. 
+    // Don't keep data around longer than it needs to be.
     RaycastHit hit;
     Vector3 frontPos, midPos, backPos;
     public float frontHeight, midHeight;
@@ -13,66 +18,65 @@ public class SpaceShipMovement : MonoBehaviour {
     public float xRotation = 0.0f;
 
 
-    void Update() {
-        //xPosition = Input.GetAxis("Horizontal") * 3.0f * Time.deltaTime;
-        //zPosition = Input.GetAxis("Vertical") * 3.0f * Time.deltaTime;  
-        //transform.localPosition += transform.forward * xPosition;
-        //transform.eulerAngles = new Vector3(xRotation, yRotation, 0);
+    void Update()
+    {
+        midPos = transform.position; 
+        // use more expressive naming, e.g. shipPos. 
+        // Good: storing in local variable limits engine calls
 
-        midPos = transform.position;
         frontPos = midPos + transform.forward;
-        backPos = midPos - transform.forward;
+        // this only takes the position and adds 1,0,0 to it?
+        // if anything, it should be relative to ship's length
 
-        if (Physics.Raycast(midPos, -transform.up, out hit)) {
+        backPos = midPos - transform.forward;
+        // this takes the position and subtracts 1,0,0 from it?
+        // if anything, it should be relative to ship's length
+
+        // use distance for raycast (we now compare it later). also limit by layermask
+        if (Physics.Raycast(midPos, -transform.up, out hit))
+        {
             midHeight = hit.distance;
         }
-        if (Physics.Raycast(frontPos, -transform.up, out hit)) {
+
+        // use distance for raycast (we now compare it later). also limit by layermask
+        if (Physics.Raycast(frontPos, -transform.up, out hit))
+        { // another expensive raycast?
             frontHeight = hit.distance;
         }
 
-        if (midHeight - frontHeight > 0.02) {
-            RotateSpaceShip(1.0f);
-        } else if (midHeight - frontHeight < -0.02) {
-            RotateSpaceShip(-1.0f);
+        // Notes(gb): why hardcoded 0.02? this should be relative
+        if (midHeight - frontHeight > 0.02)
+        {
+            RotateSpaceShip(1.0f); // rotate how? this should not be a seperate function
+        }
+        else if (midHeight - frontHeight < -0.02)
+        {
+            RotateSpaceShip(-1.0f); // rotate how? this should not be a seperate function
         }
 
-        if(midHeight < minDistance - 0.02f) {
-            MoveSpaceShip(1);
-        } else if (midHeight > minDistance + 0.02f) {
-            MoveSpaceShip(-1);
+        if (midHeight < minDistance - 0.02f)
+        {
+            MoveSpaceShip(1); // move ship how? this should not be a seperate function
         }
-
-    }    
-        /*Physics.Raycast(transform.position, Vector3.down, out hit);
-        if(hit.collider) {
-            height = hit.distance;
-            if(height < minDistance) {
-                MoveStarshipVertical();
-            }
+        else if (midHeight > minDistance + 0.02f)
+        {
+            MoveSpaceShip(-1); // move ship how? this should not be a seperate function
         }
+    }
 
-        Physics.Raycast(transform.position, transform.forward, out hit);
-        if(hit.collider) {
-            horizontalDistance = hit.distance;
-            degrees = Mathf.Atan(horizontalDistance / height) * Mathf.Rad2Deg;
-            print(degrees);
-            if (horizontalDistance < minDistance ) {
-                
-            }
-            if(degrees > 10.0f) {
-                RotateSpaceShip();
-            }
-        }*/
-
-
-    void RotateSpaceShip(float a) {
+// are we calling these functions somewhere else?
+// dont make functions for naming sake...
+// Prefer commenting sections over extracting them. 
+// Whenever you have a function, it implicitly says it can be called from anywhere inside the class.
+// Never have a function do something that happens in only one place.
+void RotateSpaceShip(float a) { // better naming for 'a'
         xRotation -= 90.0f * a * Time.deltaTime;
         transform.eulerAngles = new Vector3(xRotation, yRotation, 0);
     }
 
-    void MoveSpaceShip(float a) {
-        Vector3 position = transform.position;
-        position.y += 5.0f * a * Time.deltaTime;
+void MoveSpaceShip(float a) { // better naming for 'a'
+        Vector3 position = transform.position; // we already grabbed this as midPos.
+        position.y += 5.0f * a * Time.deltaTime; // hardcoded 5.0f
         transform.position = position;
     }
 }

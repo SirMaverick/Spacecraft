@@ -19,7 +19,6 @@ public class CameraController : MonoBehaviour {
             axisVer = 0;
         }
 
-
         transform.Rotate(new Vector3(0f , AxisHor * Time.deltaTime * m_RotationSpeed, 0f), Space.World);
         transform.Rotate(new Vector3(axisVer * Time.deltaTime * m_RotationSpeed, 0f, 0f), Space.Self);
 

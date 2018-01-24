@@ -13,7 +13,6 @@ public class SpaceShipController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         camController = GetComponent<CameraController>();
-
 	}
 	
 	// Update is called once per frame
@@ -21,9 +20,9 @@ public class SpaceShipController : MonoBehaviour {
         axisHor = Input.GetAxis("Horizontal") * 3.0f * Time.deltaTime;
         axisVer = Input.GetAxis("Vertical") * 3.0f * Time.deltaTime;
 
-        Vector3 inputVector = axisHor * transform.right + axisVer * transform.forward;
-        Vector3 worldInputVector = spaceShip.transform.InverseTransformDirection(inputVector);
-        spaceShip.transform.position += worldInputVector;
+        Vector3 inputVector = axisHor * transform.right + axisVer * transform.forward; // unclear + * order
+        Vector3 worldInputVector = spaceShip.transform.InverseTransformDirection(inputVector); // what why engine call?
+        spaceShip.transform.position += worldInputVector; // engine call
 
         /*if (axisHor != 0 && axisVer != 0) {
             Vector3 aimPoint = camController.transform.forward * axisVer + camController.transform.right * axisHor;
