@@ -8,12 +8,12 @@ Try to keep ship steady at its level on start.
 ```csharp
 // good:
 Vector3 pos = transform.position; // store in local variable, reduces engine calls
-pos = new Vector3(pos.x / 2, pos.y / 2, pos.z + 10);
+pos += new Vector3(pos.x / 2, pos.y / 2, pos.z + 10);
 pos += Vector3.forward;
 transform.position = pos; // assign back to position when all calculations are done
 
-// bad: keeps using calls into the Unity engine = unnecessary CPU overhead. 
-transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+// bad: keeps using calls into the Unity engine = unnecessary CPU overhead + harder to read.
+transform.position += new Vector3(transform.position.x, transform.position.y, transform.position.z);
 transform.position += Vector3.forward; 
 ```
 
