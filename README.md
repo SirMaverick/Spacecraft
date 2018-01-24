@@ -4,6 +4,8 @@
 * The ship now calibrates harshly at start (nose of ship dives down and then jumps back). 
 Try to keep ship steady at its level on start.
 
+* Try limit Raycasts to only search in a specific layer (use a layerMask).
+
 * Make sure to limit engine calls: store in local/class variables.
 ```csharp
 // good:
