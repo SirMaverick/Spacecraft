@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: eb23a15503b520e4c96b8bf114072dea
-timeCreated: 1515706851
+timeCreated: 1516832464
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -57,7 +57,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
-    indexFormat: 2
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
